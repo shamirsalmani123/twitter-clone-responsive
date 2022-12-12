@@ -1,32 +1,40 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div id="app" class="flex container h-screen w-full ml-10">
+    <!-- side nav -->
+    <Sidenav  />
+    
+    <!-- Tweets -->
+    <Tweets />
+
+    <!-- Trending -->
+    <Trending />
+
+    <!-- Who To Follow -->
+    <Whotofollow />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapGetters } from 'vuex';
+import Sidenav from './components/Sidenav.vue';
+import Tweets from './components/Tweets.vue';
+import Trending from './components/Trending.vue';
 
-nav {
-  padding: 30px;
+export default {
+  name: 'app',
+  computed: mapGetters(['allTabs']),
+  components: {
+    Sidenav,
+    Tweets,
+    Trending,
+  },
+  methods: {
+    addNewTweet () {
+      let newTweet = {
+        content: this.tweet.content
+      };
+      this.tweets.push (newTweet)
+    }
+  }
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
